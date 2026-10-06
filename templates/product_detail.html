@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{product.name}}-TechNova</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+   <!--navbar-->
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a href="" class="navbar-brand fw-bold">TechNova</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class='nav-link ' href="/">PRODUCTS</a></li>
+                <li class="nav-item">
+                   {% if user.is_authenticated %}
+
+                   <li class="nav-item">
+                      <span class="nav-link text-white">
+                         Hello, {{ user.username }}
+                      </span>
+                 </li>
+
+                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">
+                              LOGOUT
+                         </a>
+                     </li>
+
+                          {% else %}
+
+                     <li class="nav-item">
+                          <a class="nav-link" href="{% url 'login' %}">
+                                LOGIN
+                          </a>
+                      </li>
+
+                      <li class="nav-item">
+                           <a class="nav-link" href="{% url 'register' %}">
+                                    REGISTER
+                                </a>
+                        </li>
+
+                            {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+   </nav>   
+   <!--product detail-->
+   <div class="container py-5">
+    <div class="row g-5 align-items-center">
+        <!--product image-->
+        <div class="col-md-6">
+            {% if product.image %}
+            <img src="{{product.image.url}}" class="img-fluid rounded shadow " alt="{{product.name}}">
+            {%endif%}
+        </div>
+        <!---product information-->
+        <div class="col-md-6">
+            <span class="badge bg-primary mb-3"> FEATURED PRODUCT</span>
+            <h1 class="display-5 fw-bold">{{product.name}}</h1>
+            <p class="text-muted mt-3">{{product.description}}</p>
+            <p class="mb-2">
+                <strong>Category:</strong>
+                {{ product.category.name }}</p>
+            <h2 class="fw-bold text-dark mt-4">₹{{product.price}}</h2>
+            <div class="mt-4">
+
+                  {% if product.stock > 0 %}
+              <p class="text-success fw-semibold">
+                   ✓ In Stock ({{ product.stock }} available)</p>
+                       {% else %}
+             <p class="text-danger fw-semibold">✕ Out of Stock </p>
+                   {% endif %}
+                    <a href="{% url 'add_to_cart' product.slug %}"
+                         class="btn btn-dark btn-lg mt-3">
+                              Add to Cart
+                    </a>
+
+                <a href="/" class="btn btn-outline-secondary btn-lg ms-2">
+                       BACK TO HOME
+                 </a>
+</div>
+        </div>
+    </div>
+   </div>  
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
+    </a>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ category.name }} | TechNova</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        body {
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .product-card {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            height: 250px;
+            width: 100%;
+            object-fit: contain;
+            padding: 15px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-dark bg-black">
+
+    <div class="container">
+
+        <a class="navbar-brand" href="/">
+            TechNova
+        </a>
+
+        <a href="/" class="btn btn-outline-light btn-sm">
+            Home
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- CATEGORY HEADER -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h1 class="fw-bold">
+                {{ category.name }}
+            </h1>
+
+            {% if category.description %}
+
+            <p class="text-muted">
+                {{ category.description }}
+            </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- PRODUCTS -->
+
+        <div class="row g-4">
+
+            {% for product in products %}
+
+            <div class="col-md-6 col-lg-4">
+
+                <div class="card product-card shadow-sm h-100">
+
+                    {% if product.image %}
+
+                    <img
+                        src="{{ product.image.url }}"
+                        class="card-img-top product-image"
+                        alt="{{ product.name }}"
+                    >
+
+                    {% endif %}
+
+
+                    <div class="card-body text-center">
+
+                        <h4 class="card-title">
+                            {{ product.name }}
+                        </h4>
+
+                        <p class="text-muted">
+                            {{ product.description }}
+                        </p>
+
+                        <h5 class="fw-bold">
+                            ₹{{ product.price }}
+                        </h5>
+
+                        <a
+                            href="{% url 'product_detail' product.slug %}"
+                            class="btn btn-dark mt-3"
+                        >
+                            VIEW PRODUCT
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-12 text-center">
+
+                <h4>
+                    No products available
+                </h4>
+
+                <p class="text-muted">
+                    There are currently no products in this category.
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer class="bg-black text-secondary py-4">
+
+    <div class="container text-center">
+
+        <p class="mb-0">
+            &copy; 2026 TechNova Store. All Rights Reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+</body>
+</html>
